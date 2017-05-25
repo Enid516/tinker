@@ -16,11 +16,13 @@
 
 package tinker.sample.android.app;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e(TAG, "i am on onCreate classloader:" + MainActivity.class.getClassLoader().toString());
         //test resource change
         Log.e(TAG, "i am on onCreate string:" + getResources().getString(R.string.test_resource));
-//        Log.e(TAG, "i am on patch onCreate");
+        Log.e(TAG, "i am on patch onCreate");
 
         Button loadPatchButton = (Button) findViewById(R.id.loadPatch);
 
@@ -105,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
                 showInfo(MainActivity.this);
             }
         });
+
+        requestPermission();
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
     }
 
     public boolean showInfo(Context context) {
